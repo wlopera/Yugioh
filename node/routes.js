@@ -1,23 +1,45 @@
-var Atributo = require('./model/attribute');
 var Service = require('./services');
 
 module.exports = function (app) {
 
-    //Consultar atributos
-    app.get('/api/attribute', Service.getAttribute);
+  /**
+   * CRUD - Atributos de BD
+   * @autor: wlopera
+   */
 
-    //Crear atributo
-    app.post('/api/attribute', Service.createAttribute);
+  //Consultar atributos
+  app.get('/api/attribute', Service.getAttribute);
 
-    //Actualizar atributo
-    app.put('/api/attribute/:attribute_id', Service.updateAttribute);
+  //Crear atributo
+  app.post('/api/attribute', Service.createAttribute);
 
-    //Borrar Atributo
-    app.delete('/api/attribute/:attribute_id', Service.removeAttribute);
+  //Actualizar atributo
+  app.put('/api/attribute/:attribute_id', Service.updateAttribute);
 
-    // Carga unica de la vista - Aplicacion -
-    app.get('/', function(req, res) {
-		res.sendFile(__dirname + '/angular/index.html');
-    });
-    
+  //Borrar Atributo
+  app.delete('/api/attribute/:attribute_id', Service.removeAttribute);
+
+  /**
+   * CRUD - Cartas de BD
+   * @autor: wlopera
+   */
+  
+  //Consultar carta
+  app.get('/api/card', Service.getCard);
+
+  //Crear carta
+  app.post('/api/card', Service.createCard);
+
+  //Actualizar carta
+  app.put('/api/card/:card_id', Service.updateCard);
+
+  //Borrar carta
+  app.delete('/api/card/:card_id', Service.removeCard);
+
+
+  // Carga unica de la vista - Aplicacion -
+  app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/angular/index.html');
+  });
+
 }

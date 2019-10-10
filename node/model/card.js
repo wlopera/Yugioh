@@ -1,11 +1,14 @@
 var mongoose = require('mongoose');
 
-module.exports = mongoose.model('Card',{
-    number: String,
+module.exports = mongoose.model('Card', {
     nombre: String,
     name: String,
     level: String,
-    attribute: String,
+    attribute: {
+        _id: String,
+        name: String,
+        icon: String
+    },
     icon: String,
     type: String,
     ATK: String,

@@ -1,4 +1,10 @@
 var Attribute = require('./model/attribute');
+var Card = require('./model/card');
+
+/**
+ * CRUD - Atributos de BD
+ * @autor: wlopera
+ */
 
 // Consulta atributos de BD
 exports.getAttribute = function (req, res) {
@@ -14,7 +20,7 @@ exports.createAttribute = function (req, res) {
         icon: req.body.icon
     }
 
-    Attribute.create(atribute, function (err, data) {
+    Attribute.create(attribute, function (err, data) {
         if (err) {
             res.send(err);
         } else {
@@ -33,7 +39,7 @@ exports.updateAttribute = function (req, res) {
     }
 
     Attribute.update({ _id: req.params.attribute_id },
-        { $set: attibute },
+        { $set: attribute },
         function (err, data) {
             if (err) {
                 res.send(err);
@@ -63,6 +69,87 @@ function findAtribute(res) {
                 res.send(err);
             } else {
                 res.json(attribute);
+            }
+        });
+}
+
+ /**
+   * CRUD - Cartas de BD
+   * @autor: wlopera
+   */
+
+   // Consulta carta de BD
+exports.getCard = function (req, res) {
+    findCard(res);
+};
+
+// Guardar carta en BD
+exports.createCard = function (req, res) {
+    var card = {
+        nombre: req.body.nombre,
+        name: req.body.name,
+        level: req.body.level,
+        attribute: {name: req.body.attribute.name, icon: req.body.attribute.icon},
+        icon: req.body.icon,
+        type: req.body.type,
+        ATK: req.body.ATK,
+        DEF: req.body.DEF,
+        description: req.body.description          
+    }
+
+    console.log("createCard - card: %0", card);
+
+    Card.create(card, function (err, data) {
+        if (err) {
+            console.log("err: %0",  err);
+            res.send(err);
+        } else {
+            console.log("res: %0", res);
+            findCard(res);
+        }
+    });
+};
+
+// Actualizar carta en BD
+exports.updateCard = function (req, res) {
+
+    var card = {
+        id: req.body.id,
+        name: req.body.name,
+        icon: req.body.icon
+    }
+
+    Card.update({ _id: req.params.card_id },
+        { $set: card },
+        function (err, data) {
+            if (err) {
+                res.send(err);
+            } else {
+                findCard(res);
+            }
+        });
+};
+
+// remover carta en BD
+exports.removeCard = function (req, res) {
+    Card.remove({ _id: req.params.card_id },
+        function (err, data) {
+            if (err) {
+                res.send(err);
+            } else {
+                findCard(res);
+            }
+        });
+};
+
+// Consultar todas las carta de BD
+function findCard(res) {
+    Card.find(
+        function (err, card) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(card);
             }
         });
 }
