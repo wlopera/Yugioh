@@ -4,12 +4,8 @@ module.exports = mongoose.model('Card', {
     nombre: String,
     name: String,
     level: String,
-    attribute: {
-        _id: String,
-        name: String,
-        icon: String
-    },
-    icon: String,
+    attribute: String,
+    image: String,
     type: String,
     ATK: String,
     DEF: String,

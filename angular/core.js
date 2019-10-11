@@ -4,57 +4,12 @@ angular.module('MainApp', [])
 MainController.$inject = ['$scope', '$http'];
 
 function MainController($scope, $http) {
-    $scope.newAttibute = {};
-    $scope.attributes = {};
-
-    $scope.newCard = {};
+    $scope.newCard = {
+        image: 'yugioh.jpg'
+    };
     $scope.cards = {};
-
-    /**
-     * Servicio - Atributos
-     * @autor: wlopera
-     */
-
-    // Crear atributos
-    $scope.createAttribute = function () {
-        $http.post('/api/attribute', $scope.newAttibute)
-            .then(function (data) {
-                $scope.newAttibute = {}; // Borrar data creada
-                $scope.attributes = data;
-            }, function (err) {
-                console.log('Error creando atributos: ' + err);
-            });
-    }
-
-    // Modificar atributos
-    $scope.updateAttribute = function () {
-        $http.put('/api/attribute/' + $scope.newAttibute._id, $scope.newAttibute)
-            .success(function (data) {
-                $scope.newAttibute = {}; // Borrar data creada
-                $scope.attributes = data;
-            }).error(function (err) {
-                console.log('Error actualizando atributos: ' + err);
-            });
-    }
-
-    // Eliminar atributos
-    $scope.deleteAttribute = function (attribute) {
-        $http.delete('/api/attribute/' + attribute._id)
-            .success(function (data) {
-                $scope.newAttibute = {}; // Borrar data creada
-                $scope.attributes = data;
-            }).error(function (err) {
-                console.log('Error borrando atributos: ' + err);
-            });
-    }
-
-    // Consultar atributos
-    $http.get('/api/attribute')
-        .then(function (attibutes) {
-            $scope.attributes = attibutes.data;
-        }, function (err) {
-            console.log('Error consulta atributos BD: ' + err);
-        });
+    $scope.show = false;
+    $scope.showData = false;
 
     /**
      * Servicio - Card
@@ -94,23 +49,17 @@ function MainController($scope, $http) {
                 console.log('Error borrando carta: ' + err);
             });
     }
+    
+    $scope.showCard = function(card){
+        $scope.newCard = card;
+        $scope.show = true;
 
-
-    $scope.newCard = {
-        nombre: 'Dragón Blanco de Ojos Azules',
-        name: 'Blue-Eyes White Dragon',
-        level: '8',
-        attribute: {
-            name: 'Luz',
-            icon: null
-        },
-        icon: null,
-        type: 'Dradón',
-        ATK: '3000',
-        DEF: '2500',
-        description: 'Este legendario dragón es una poderosa máquina de destrucción. Virtualmente invencible, muy pocos se han enfrentado a esta impresionante criatura y han vivido para contarlo.'
+        if (null == card.level){
+            $scope.showData = false;
+        } else {
+            $scope.showData = true;
+        }
     }
-    $scope.createCard();
 
     // Consultar carta
     $http.get('/api/card')

@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Cargamos bootstrap -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <!-- Cargamos angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
     <!-- Cargamos el javascript de angular -->
@@ -17,21 +19,51 @@
 </head>
 
 <body ng-controller="MainController">
-    <h1>Yugi oh !!!!</h1>
-    <hr>
 
-    <table class="table table-striped">
-        <tr class="info">
-            <td>ID</td>
-            <td>NOMBRE</td>
-            <td>ICONO   </td>
-        </tr>
-        <tr ng-repeat="attribute in attributes">
-            <td>{{ attribute._id }}</td>
-            <td>{{ attribute.name }}</td>
-            <td>{{ attribute.icon }}</td>
-        </tr>
-    </table>
+    <div class="row" style="background-color:lavender;">
+
+        <div class="col-sm-4" style="background-color:lavender;">
+            [{{ newCard.name }}]
+            <img src="/images/{{newCard.image}}" width="75%" height="75%">
+        </div>
+
+        <div class="col-sm-8">
+            <table class="table table-striped">
+                <tr class="info">
+                    <td>Carta</td>
+                    <td>Nivel</td>
+                    <td>Tipo</td>
+                    <td>Ataque</td>
+                    <td>Defensa</td>
+                </tr>
+                <tr ng-repeat="card in cards">
+                    <td><a href="" ng-click="showCard(card)">{{ card.nombre }}</a></td>
+                    <td>{{ card.level }}</td>
+                    <td>{{ card.type }}</td>
+                    <td>{{ card.ATK }}</td>
+                    <td>{{ card.DEF }}</td>
+                </tr>
+            </table>
+            <br>
+            <div ng-show="show">
+                <br>
+                Tipo: {{ newCard.attribute }}
+                <br>
+                <div ng-show="showData">
+                    Nivel: {{ newCard.level }}
+                    <br>
+                    Ataque: {{ newCard.ATK }}
+                    <br>
+                    Defensa: {{ newCard.DEF }}
+                    <br>
+                    <br>
+                    [{{ newCard.type }}]
+                </div>
+                {{ newCard.description }}
+            </div>
+        </div>
+
+    </div>
 
 </body>
 

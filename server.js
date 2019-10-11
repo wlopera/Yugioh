@@ -21,7 +21,7 @@ const app = express();
 // Configuracion
 
 // Conexion base de datos -MongoDB- 
-mongoose.connect('mongodb://localhost:27017/Yugioh', { useNewUrlParser: true, useUnifiedTopology: true });     // Conexion a la base de datos Mongo -> "yugioh"
+mongoose.connect('mongodb://localhost:27017/yugioh', { useNewUrlParser: true, useUnifiedTopology: true });     // Conexion a la base de datos Mongo -> "yugioh"
 
 app.use(express.static(__dirname + '/angular'));
 app.use(logger('dev'));            // activamos el log en modo 'dev'
