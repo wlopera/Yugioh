@@ -5,12 +5,14 @@ MainController.$inject = ['$scope', '$http'];
 
 function MainController($scope, $http) {
     $scope.newCard = {};
+    $scope.isCopy = true;
 
     $scope.currentCard = {
+        name: 'Yugioh',
         image: 'yugioh.jpg'
     };
 
-    $scope.cards = {};
+    $scope.cards = [];
     $scope.show = false;
     $scope.showData = false;
     $scope.filtro = '';
@@ -35,11 +37,14 @@ function MainController($scope, $http) {
 
     // Modificar carta
     $scope.updateCard = function () {
+        console.log("Actualizando carta...: %0", $scope.newCard);
         $http.put('/api/card/' + $scope.newCard._id, $scope.newCard)
-            .success(function (data) {
+            .then(function (data) {
+                angular.copy($scope.newCard, $scope.currentCard);
                 $scope.newCard = {}; // Borrar data creada
-                $scope.cards = data;
-            }).error(function (err) {
+                $scope.cards = data.data;
+                console.log("Data actualizada...: %0", $scope.cards);
+            }, function (err) {
                 console.log('Error actualizando carta: ' + err);
             });
     }
@@ -47,10 +52,10 @@ function MainController($scope, $http) {
     // Eliminar carta
     $scope.deleteCard = function (card) {
         $http.delete('/api/card/' + card._id)
-            .success(function (data) {
+            .then(function (data) {
                 $scope.newCard = {}; // Borrar data creada
                 $scope.cards = data;
-            }).error(function (err) {
+            }, function (err) {
                 console.log('Error borrando carta: ' + err);
             });
     }
@@ -74,14 +79,31 @@ function MainController($scope, $http) {
             console.log('Error consulta carta: ' + err);
         });
 
-
     // Retorna el nombre dle archivo a agregar
     $scope.setFile = function (element) {
         $scope.$apply(function ($scope) {
             console.log(element.files[0]);
             $scope.newCard.image = element.files[0].name;
-            console.log("Archivo: " +$scope.newCard.image);
+            console.log("Archivo: " + $scope.newCard.image);
         });
     };
+
+    $scope.copy = function () {
+        $scope.isCopy = true;
+    }
+
+    $scope.modify = function () {
+        $scope.isCopy = false;
+        angular.copy($scope.currentCard, $scope.newCard);
+    }
+
+    $scope.processCard = function () {
+        if ($scope.isCopy) {
+            $scope.createCard();
+        } else {
+            $scope.updateCard();
+        }
+        $('#exampleModal').modal('hide');
+    }
 
 }
