@@ -4,12 +4,17 @@ angular.module('MainApp', [])
 MainController.$inject = ['$scope', '$http'];
 
 function MainController($scope, $http) {
-    $scope.newCard = {
+    $scope.newCard = {};
+
+    $scope.currentCard = {
         image: 'yugioh.jpg'
     };
+
     $scope.cards = {};
     $scope.show = false;
     $scope.showData = false;
+    $scope.filtro = '';
+    $scope.filter = '';
 
     /**
      * Servicio - Card
@@ -49,12 +54,12 @@ function MainController($scope, $http) {
                 console.log('Error borrando carta: ' + err);
             });
     }
-    
-    $scope.showCard = function(card){
-        $scope.newCard = card;
+
+    $scope.showCard = function (card) {
+        $scope.currentCard = card;
         $scope.show = true;
 
-        if (null == card.level){
+        if (null == card.level) {
             $scope.showData = false;
         } else {
             $scope.showData = true;
@@ -69,5 +74,14 @@ function MainController($scope, $http) {
             console.log('Error consulta carta: ' + err);
         });
 
+
+    // Retorna el nombre dle archivo a agregar
+    $scope.setFile = function (element) {
+        $scope.$apply(function ($scope) {
+            console.log(element.files[0]);
+            $scope.newCard.image = element.files[0].name;
+            console.log("Archivo: " +$scope.newCard.image);
+        });
+    };
 
 }

@@ -9,5 +9,6 @@ module.exports = mongoose.model('Card', {
     type: String,
     ATK: String,
     DEF: String,
-    description: String
+    description: String,
+    belong: String
 })

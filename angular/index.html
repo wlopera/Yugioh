@@ -12,6 +12,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <!-- Cargamos angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <!-- Cargamos css -->
+    <link rel="stylesheet" href="css/style.css">
     <!-- Cargamos el javascript de angular -->
     <script src="core.js"></script>
 
@@ -23,48 +25,113 @@
     <div class="row" style="background-color:lavender;">
 
         <div class="col-sm-4" style="background-color:lavender;">
-            [{{ newCard.name }}]
-            <img src="/images/{{newCard.image}}" width="75%" height="75%">
+            [{{ currentCard.name }}]
+            <img src="/images/{{currentCard.image}}" width="75%" height="75%">
         </div>
 
         <div class="col-sm-8">
-            <table class="table table-striped">
-                <tr class="info">
-                    <td>Carta</td>
-                    <td>Nivel</td>
-                    <td>Tipo</td>
-                    <td>Ataque</td>
-                    <td>Defensa</td>
-                </tr>
-                <tr ng-repeat="card in cards">
-                    <td><a href="" ng-click="showCard(card)">{{ card.nombre }}</a></td>
-                    <td>{{ card.level }}</td>
-                    <td>{{ card.type }}</td>
-                    <td>{{ card.ATK }}</td>
-                    <td>{{ card.DEF }}</td>
-                </tr>
-            </table>
-            <br>
+            Buscar: Inglés: <input ng-model="filter" />
+            Español: <input ng-model="filtro" />
+            <!-- Modal Agregar Carta -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Agregar Carta
+            </button>
+            <div class="tableFixHead">
+                <table class="table table-striped">
+                    <tr class="info">
+                        <td>Español</td>
+                        <td>Inglés</td>
+                    </tr>
+                    <tr ng-repeat="card in cards | filter: {nombre: filtro, name: filter}">
+                        <td><a href="" ng-click="showCard(card)">{{ card.nombre }}</a></td>
+                        <td><a href="" ng-click="showCard(card)">{{ card.name }}</a></td>
+                    </tr>
+                </table>
+            </div>
             <div ng-show="show">
                 <br>
-                Tipo: {{ newCard.attribute }}
+                Pertenece: {{ currentCard.belong }}
+                <br>
+                Tipo: {{ currentCard.attribute }}
                 <br>
                 <div ng-show="showData">
-                    Nivel: {{ newCard.level }}
+                    Nivel: {{ currentCard.level }}
                     <br>
-                    Ataque: {{ newCard.ATK }}
+                    Ataque: {{ currentCard.ATK }}
                     <br>
-                    Defensa: {{ newCard.DEF }}
+                    Defensa: {{ currentCard.DEF }}
                     <br>
                     <br>
-                    [{{ newCard.type }}]
+                    [{{ currentCard.type }}]
                 </div>
-                {{ newCard.description }}
+                {{ currentCard.description }}
             </div>
         </div>
 
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">CARTA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-2"><input type="file" onchange="angular.element(this).scope().setFile(this)"></div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-6"><img src="/images/{{newCard.image}}" width="25%" height="25%"></div>
+                    </div>
+                    
+                    <div class="row"><div class="col-sm-12"></div></div>
+                    <div class="row">
+                        <div class="col-sm-2">Nombre:</div>
+                        <div class="col-sm-4"><input ng-model="newCard.nombre"/></div>
+                        <div class="col-sm-2">Name:</div>
+                        <div class="col-sm-4"><input ng-model="newCard.name"/></div>
+                    </div>
+                    <div class="row"><div class="col-sm-12"></div></div>
+
+                    <div class="row">
+                        <div class="col-sm-2">Nivel:</div>
+                        <div class="col-sm-4"><input ng-model="newCard.level"/></div>
+                        <div class="col-sm-2">Atributo:</div>
+                        <div class="col-sm-4"><input ng-model="newCard.attribute"/></div>
+                    </div>
+        
+                    <div class="row"><div class="col-sm-12"></div></div>
+                    <div class="row">
+                        <div class="col-sm-2">Ataque:</div>
+                        <div class="col-sm-4"><input ng-model="newCard.ATK"/></div>
+                        <div class="col-sm-2">Defensa:</div>
+                        <div class="col-sm-4"><input ng-model="newCard.DEF"/></div>
+                    </div>
+                    <div class="row"><div class="col-sm-12"></div></div>
+                    <div class="row">
+                        <div class="col-sm-2">Tipo:</div>
+                        <div class="col-sm-4"><input ng-model="newCard.type"/></div>
+                        <div class="col-sm-2">Descripcion:</div>
+                        <div class="col-sm-4"><input ng-model="newCard.description"/></div>
+                    </div>
+                    <div class="row"><div class="col-sm-12"></div></div>
+                    <div class="row">
+                        <div class="col-sm-2">Pertence a:</div>
+                        <div class="col-sm-4"><input ng-model="newCard.belong"/></div>
+                    </div>
+                    <div class="row"><div class="col-sm-12"></div></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                    <button type="button" class="btn btn-primary" ng-click="createCard()">Agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
