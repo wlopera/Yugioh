@@ -1,0 +1,39 @@
+{
+    "attribute": [
+        {
+            "id": 0,
+            "name": "Seleccione"
+        },
+        {
+            "id": 1,
+            "name": "Oscuridad"
+        },
+        {
+            "id": 2,
+            "name": "Tierra"
+        },
+        {
+            "id": 3,
+            "name": "Fuego"
+        },
+        {
+            "id": 4,
+            "name": "Luz"
+        },
+        {
+            "name": "Agua"
+        },
+        {
+            "id": 5,
+            "name": "Viento"
+        },
+        {
+            "id": 6,
+            "name": "Mágica"
+        },
+        {
+            "id": 7,
+            "name": "Trampa"
+        }
+    ]
+}

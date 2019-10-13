@@ -4,6 +4,8 @@ angular.module('MainApp', [])
 MainController.$inject = ['$scope', '$http'];
 
 function MainController($scope, $http) {
+    $scope.characters = {};
+    $scope.attributes = {};
     $scope.newCard = {};
     $scope.isCopy = true;
 
@@ -88,15 +90,23 @@ function MainController($scope, $http) {
         });
     };
 
+    // Procesar opcion copiar carta
     $scope.copy = function () {
         $scope.isCopy = true;
+        $scope.newCard = { character: "Seleccione", attribute : "Seleccione"};
+        $('#exampleModal').modal('show');
     }
 
+    // Procesar opcion modificar carta
     $scope.modify = function () {
-        $scope.isCopy = false;
-        angular.copy($scope.currentCard, $scope.newCard);
+        if (null != $scope.currentCard.nombre) {
+            $scope.isCopy = false;
+            angular.copy($scope.currentCard, $scope.newCard);
+            $('#exampleModal').modal('show');
+        } 
     }
 
+    // Procesar carta
     $scope.processCard = function () {
         if ($scope.isCopy) {
             $scope.createCard();
@@ -105,5 +115,23 @@ function MainController($scope, $http) {
         }
         $('#exampleModal').modal('hide');
     }
+
+    // Consultar personajes
+    $http.get('/json/character.json')
+        .then(function (characters) {
+            console.log("Characters: %0", characters.data.character);
+            $scope.characters = characters.data.character;
+        }, function (err) {
+            console.log('Error consulta personajes: ' + err);
+        });
+
+    // Consultar atributos
+    $http.get('/json/attribute.json')
+        .then(function (attributes) {
+            console.log("Characters: %0", attributes.data.attribute);
+            $scope.attributes = attributes.data.attribute;
+        }, function (err) {
+            console.log('Error consulta atributos: ' + err);
+        });
 
 }

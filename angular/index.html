@@ -35,10 +35,10 @@
             Buscar: Inglés: <input ng-model="filter" />
             Español: <input ng-model="filtro" />
             <!-- Modal Agregar Carta -->
-            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-primary btn-sm" data-target="#exampleModal" ng-click="copy()">
                 Agregar
             </button>
-            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" ng-click="modify()">
+            <button type=" button" class="btn btn-primary btn-sm" data-target="#exampleModal" ng-click="modify()">
                 Modificar
             </button>
             <div class="tableFixHead">
@@ -47,19 +47,31 @@
                         <td>Español</td>
                         <td>Inglés</td>
                     </tr>
-                    
+
                     <tr ng-repeat="card in cards | filter: {nombre: filtro, name: filter}">
                         <td><a href="" ng-click="showCard(card)">{{ card.nombre }}</a></td>
                         <td><a href="" ng-click="showCard(card)">{{ card.name }}</a></td>
                     </tr>
                 </table>
             </div>
+
             <div ng-show="show">
+                Pertenece:
+                <select ng-model="currentCard.character" ng-disabled="true">
+                    <option ng-selected="{{character.name == currentCard.character}}"
+                        ng-repeat="character in characters" value="{{character.name}}">
+                        {{character.name}}
+                    </option>
+                </select>
                 <br>
-                Pertenece: {{ currentCard.belong }}
                 <br>
-                <br>
-                Tipo: {{ currentCard.attribute }}
+                Tipo:
+                <select ng-model="currentCard.attribute" ng-disabled="true">
+                    <option ng-selected="{{attribute.name == currentCard.attribute}}"
+                        ng-repeat="attribute in attributes" value="{{attribute.name}}">
+                        {{attribute.name}}
+                    </option>
+                </select>
                 <br>
                 <div ng-show="showData">
                     Nivel: {{ currentCard.level }}

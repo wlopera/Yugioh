@@ -1,0 +1,32 @@
+{
+    "character": [
+        {
+        "id": 0,
+        "name": "Seleccione"
+        },
+        {
+        "id": 1,
+        "name": "Yugi Muto"
+        },
+        {
+        "id": 2,
+        "name": "Seto Kaiba"
+        },
+        {
+        "id": 3,
+        "name": "Joey Wheeler"
+        },
+        {
+        "id": 4,
+        "name": "Maximillion Pegasus"
+        },
+        {
+        "id": 5,
+        "name": "Maximillion Pegasus"
+        },
+        {
+        "id": 6,
+        "name": "Ishizu Isthar"
+        }
+    ]
+}

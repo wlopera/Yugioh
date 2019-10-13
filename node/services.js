@@ -23,7 +23,7 @@ exports.createCard = function (req, res) {
         ATK: req.body.ATK,
         DEF: req.body.DEF,
         description: req.body.description,
-        belong: req.body.belong
+        character: req.body.character
     }
     console.log("createCard - card: %0", card);
     Card.create(card, function (err, data) {
@@ -50,7 +50,7 @@ exports.updateCard = function (req, res) {
         ATK: req.body.ATK,
         DEF: req.body.DEF,
         description: req.body.description,
-        belong: req.body.belong
+        character: req.body.character
     }
 
     Card.update({ _id: req.params.card_id },

@@ -1,22 +1,15 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-lg-10" role="document">
+        <div class="modal-content" style="background-color:lavender;">
             <div class="modal-header">
-                CARTA
+                PROCESAR CARTA
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-2"><input type="file" onchange="angular.element(this).scope().setFile(this)">
-                    </div>
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-6"><img src="/images/{{newCard.image}}" width="25%" height="25%"></div>
-                </div>
-
                 <div class="row">
                     <div class="col-sm-12"></div>
                 </div>
@@ -35,7 +28,13 @@
                     <div class="col-sm-2">Nivel:</div>
                     <div class="col-sm-4"><input ng-model="newCard.level" /></div>
                     <div class="col-sm-2">Atributo:</div>
-                    <div class="col-sm-4"><input ng-model="newCard.attribute" /></div>
+                    <div class="col-sm-4">
+                        <select ng-model="newCard.attribute">
+                            <option ng-selected="{{attribute.name == newCard.attribute}}"
+                                ng-repeat="attribute in attributes" value="{{attribute.name}}">
+                                {{attribute.name}}
+                            </option>
+                        </select></div>
                 </div>
 
                 <div class="row">
@@ -55,24 +54,35 @@
                 <div class="row">
                     <div class="col-sm-2">Tipo:</div>
                     <div class="col-sm-4"><input ng-model="newCard.type" /></div>
-                    <div class="col-sm-2">Descripcion:</div>
-                    <div class="col-sm-4"><input ng-model="newCard.description" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12"></div>
-                </div>
-                
-                <div class="row">
                     <div class="col-sm-2">Pertence a:</div>
-                    <div class="col-sm-4"><input ng-model="newCard.belong" /></div>
+                    <div class="col-sm-4">
+                        <select ng-model="newCard.character">
+                            <option ng-selected="{{newCard.name == currentCard.character}}"
+                                ng-repeat="character in characters" value="{{character.name}}">
+                                {{character.name}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12"></div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success btn-sm" ng-click="processCard()">Ok</button>
+
+                <div class="row">
+                    <div class="col-sm-2">Descripcion:</div>
+                    <div class="col-sm-10"><textarea rows="4" cols="65" ng-model="newCard.description"></textarea></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3"><a href="" >Cargar imagen</a><input type="file" id="file" onchange="angular.element(this).scope().setFile(this)"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4"><img src="/images/{{newCard.image}}" width="50%" height="50%"></div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success btn-sm" ng-click="processCard()">Ok</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12"></div>
+                </div>
             </div>
         </div>
     </div>

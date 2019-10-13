@@ -10,5 +10,5 @@ module.exports = mongoose.model('Card', {
     ATK: String,
     DEF: String,
     description: String,
-    belong: String
+    character: String
 })
