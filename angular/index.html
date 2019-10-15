@@ -15,79 +15,17 @@
     <!-- Cargamos css -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Cargamos el javascript de angular -->
-    <script src="core.js"></script>
+    <script src="/app/app.js"></script>
+    <script src="/app/controllers/mainController.js"></script>
+    <script src="/app/directives/mainDirective.js"></script>
 
     <title>Yugioh</title>
 </head>
 
 <body ng-controller="MainController">
 
-    <div class="row" style="background-color:lavender;">
-
-        <div class="col-sm-4" style="background-color:lavender;">
-            [{{ currentCard.name }}]
-            <div ng-if="currentCard.image">
-                <img ng-src="/images/{{currentCard.image}}" width="75%" height="75%">
-            </div>
-        </div>
-
-        <div class="col-sm-8">
-            Buscar: Inglés: <input ng-model="filter" />
-            Español: <input ng-model="filtro" />
-            <!-- Modal Agregar Carta -->
-            <button type="button" class="btn btn-primary btn-sm" data-target="#exampleModal" ng-click="copy()">
-                Agregar
-            </button>
-            <button type=" button" class="btn btn-primary btn-sm" data-target="#exampleModal" ng-click="modify()">
-                Modificar
-            </button>
-            <div class="tableFixHead">
-                <table class="table table-striped" border="2">
-                    <tr class="info">
-                        <td>Español</td>
-                        <td>Inglés</td>
-                    </tr>
-
-                    <tr ng-repeat="card in cards | filter: {nombre: filtro, name: filter}">
-                        <td><a href="" ng-click="showCard(card)">{{ card.nombre }}</a></td>
-                        <td><a href="" ng-click="showCard(card)">{{ card.name }}</a></td>
-                    </tr>
-                </table>
-            </div>
-
-            <div ng-show="show">
-                Pertenece:
-                <select ng-model="currentCard.character" ng-disabled="true">
-                    <option ng-selected="{{character.name == currentCard.character}}"
-                        ng-repeat="character in characters" value="{{character.name}}">
-                        {{character.name}}
-                    </option>
-                </select>
-                <br>
-                <br>
-                Tipo:
-                <select ng-model="currentCard.attribute" ng-disabled="true">
-                    <option ng-selected="{{attribute.name == currentCard.attribute}}"
-                        ng-repeat="attribute in attributes" value="{{attribute.name}}">
-                        {{attribute.name}}
-                    </option>
-                </select>
-                <br>
-                <div ng-show="showData">
-                    Nivel: {{ currentCard.level }}
-                    <br>
-                    Ataque: {{ currentCard.ATK }}
-                    <br>
-                    Defensa: {{ currentCard.DEF }}
-                    <br>
-                    <br>
-                    [{{ currentCard.type }}]
-                </div>
-                {{ currentCard.description }}
-            </div>
-        </div>
-
-    </div>
+    <!-- Incluir directiva con cuerpo principal -->
+    <main-directive></main-directive>
 
     <!-- Incluir data modal-->
     <div ng-include="'/modal.html'"></div>

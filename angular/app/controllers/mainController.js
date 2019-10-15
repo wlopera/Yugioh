@@ -1,4 +1,4 @@
-angular.module('MainApp', [])
+angular.module('MainApp')
     .controller("MainController", MainController);
 
 MainController.$inject = ['$scope', '$http'];
@@ -7,19 +7,14 @@ function MainController($scope, $http) {
     $scope.characters = {};
     $scope.attributes = {};
     $scope.newCard = {};
-    $scope.isCopy = true;
-
+    
     $scope.currentCard = {
         name: 'Yugioh',
         image: 'yugioh.jpg'
     };
 
     $scope.cards = [];
-    $scope.show = false;
-    $scope.showData = false;
-    $scope.filtro = '';
-    $scope.filter = '';
-
+    
     /**
      * Servicio - Card
      * @autor: wlopera
@@ -62,17 +57,6 @@ function MainController($scope, $http) {
             });
     }
 
-    $scope.showCard = function (card) {
-        $scope.currentCard = card;
-        $scope.show = true;
-
-        if (null == card.level) {
-            $scope.showData = false;
-        } else {
-            $scope.showData = true;
-        }
-    }
-
     // Consultar carta
     $http.get('/api/card')
         .then(function (cards) {
@@ -89,32 +73,6 @@ function MainController($scope, $http) {
             console.log("Archivo: " + $scope.newCard.image);
         });
     };
-
-    // Procesar opcion copiar carta
-    $scope.copy = function () {
-        $scope.isCopy = true;
-        $scope.newCard = { character: "Seleccione", attribute : "Seleccione"};
-        $('#exampleModal').modal('show');
-    }
-
-    // Procesar opcion modificar carta
-    $scope.modify = function () {
-        if (null != $scope.currentCard.nombre) {
-            $scope.isCopy = false;
-            angular.copy($scope.currentCard, $scope.newCard);
-            $('#exampleModal').modal('show');
-        } 
-    }
-
-    // Procesar carta
-    $scope.processCard = function () {
-        if ($scope.isCopy) {
-            $scope.createCard();
-        } else {
-            $scope.updateCard();
-        }
-        $('#exampleModal').modal('hide');
-    }
 
     // Consultar personajes
     $http.get('/json/character.json')
